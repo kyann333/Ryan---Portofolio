@@ -5,7 +5,6 @@ import Skills from '@/components/Skills'
 import Projects from '@/components/Projects'
 import Experience from '@/components/Experience'
 // import Certificates from '@/components/Certificates'
-import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 
 export default function Home() {
@@ -19,7 +18,6 @@ export default function Home() {
         <Projects />
         <Experience />
         {/* <Certificates /> */}
-        <Contact />
       </main>
       <Footer />
     </>

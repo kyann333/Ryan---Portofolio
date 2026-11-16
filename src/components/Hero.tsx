@@ -30,7 +30,7 @@ const ui = {
     headline: 'Building practical web systems, mobile apps, and leading tech communities.',
     sub: "A communicative Full-Stack & AI Builder — merging software engineering expertise with real organizational leadership, peer teaching, and a business-first mindset.",
     cta1: 'Explore Projects',
-    cta2: 'Contact Me',
+    cta2: 'About Me',
     stat2: 'Vice Chair @ UKM Programming',
     imgAlt: 'Ryan Surya — Full-Stack Developer',
   },
@@ -39,7 +39,7 @@ const ui = {
     headline: 'Membangun sistem web praktis, aplikasi mobile, dan memimpin komunitas teknologi.',
     sub: 'Full-Stack & AI Builder yang komunikatif — memadukan keahlian rekayasa perangkat lunak dengan kepemimpinan organisasi nyata, pengajaran sebaya, dan pola pikir bisnis.',
     cta1: 'Lihat Proyek',
-    cta2: 'Hubungi Saya',
+    cta2: 'Tentang Saya',
     stat2: 'Wakil Ketua @ UKM Programming',
     imgAlt: 'Ryan Surya — Full-Stack Developer',
   },
@@ -126,7 +126,7 @@ export default function Hero() {
                 <ArrowRight className="w-4 h-4" />
               </a>
               <a
-                href="#contact"
+                href="#about"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-espresso text-espresso font-ui font-semibold text-sm hover:bg-espresso/8 transition-colors"
               >
                 {copy.cta2}

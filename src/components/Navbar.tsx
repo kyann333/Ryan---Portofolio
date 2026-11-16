@@ -9,7 +9,6 @@ const navItems = [
   { href: '#projects',   en: 'Projects',   id: 'Proyek' },
   { href: '#experience', en: 'Experience', id: 'Pengalaman' },
   // { href: '#certificates', en: 'Certificates', id: 'Sertifikat' },
-  { href: '#contact',    en: 'Contact',    id: 'Kontak' },
 ]
 
 const EASE = [0.22, 1, 0.36, 1] as const
