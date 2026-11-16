@@ -1,20 +1,25 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useLanguage } from '@/context/LanguageContext'
 
 const navItems = [
-  { href: '#about',        en: 'About',        id: 'Tentang' },
-  { href: '#projects',     en: 'Projects',     id: 'Proyek' },
-  { href: '#experience',   en: 'Experience',   id: 'Pengalaman' },
-  { href: '#certificates', en: 'Certificates', id: 'Sertifikat' },
-  { href: '#contact',      en: 'Contact',      id: 'Kontak' },
+  { href: '#about',      en: 'About',      id: 'Tentang' },
+  { href: '#projects',   en: 'Projects',   id: 'Proyek' },
+  { href: '#experience', en: 'Experience', id: 'Pengalaman' },
+  // { href: '#certificates', en: 'Certificates', id: 'Sertifikat' },
+  { href: '#contact',    en: 'Contact',    id: 'Kontak' },
 ]
+
+const EASE = [0.22, 1, 0.36, 1] as const
 
 export default function Navbar() {
   const { locale, toggleLanguage } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [activeHref, setActiveHref] = useState<string | null>(null)
+  const hoverRef = useRef<string | null>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -47,14 +52,23 @@ export default function Navbar() {
         </a>
 
         {/* Desktop nav links */}
-        <ul className="hidden md:flex items-center gap-6">
+        <ul className="hidden md:flex items-center gap-1">
           {navItems.map((item) => (
-            <li key={item.href}>
+            <li key={item.href} className="relative">
               <a
                 href={item.href}
-                className="text-sm font-ui font-medium text-charcoal/70 hover:text-navy transition-colors hover:underline underline-offset-4 decoration-espresso/40"
+                onMouseEnter={() => { hoverRef.current = item.href; setActiveHref(item.href) }}
+                onMouseLeave={() => { hoverRef.current = null; setActiveHref(null) }}
+                className="relative z-10 px-3 py-1.5 text-sm font-ui font-medium text-charcoal/70 hover:text-navy transition-colors block"
               >
-                {locale === 'en' ? item.en : item.id}
+                {activeHref === item.href && (
+                  <motion.span
+                    layoutId="nav-pill"
+                    className="absolute inset-0 rounded-full bg-navy/8"
+                    transition={{ duration: 0.25, ease: EASE }}
+                  />
+                )}
+                <span className="relative">{locale === 'en' ? item.en : item.id}</span>
               </a>
             </li>
           ))}
@@ -62,15 +76,33 @@ export default function Navbar() {
 
         {/* Right controls */}
         <div className="flex items-center gap-3">
-          {/* Language toggle */}
+          {/* Language toggle with sliding pill */}
           <button
             onClick={toggleLanguage}
             aria-label={`Switch to ${locale === 'en' ? 'Indonesian' : 'English'}`}
-            className="hidden md:flex items-center gap-1 text-xs font-mono font-semibold px-3 py-1.5 rounded-full border border-espresso/30 text-espresso hover:bg-espresso/8 transition-colors"
+            className="hidden md:flex items-center gap-0 text-xs font-mono font-semibold px-1.5 py-1 rounded-full border border-espresso/30 text-espresso hover:border-espresso/50 transition-colors overflow-hidden relative"
           >
-            <span className={locale === 'en' ? 'text-navy font-bold' : 'opacity-50'}>EN</span>
-            <span className="opacity-30 mx-0.5">|</span>
-            <span className={locale === 'id' ? 'text-navy font-bold' : 'opacity-50'}>ID</span>
+            <span className="relative z-10 px-2.5 py-0.5">
+              {locale === 'en' && (
+                <motion.span
+                  layoutId="lang-pill"
+                  className="absolute inset-0 rounded-full bg-navy/15"
+                  transition={{ duration: 0.3, ease: EASE }}
+                />
+              )}
+              <span className={`relative ${locale === 'en' ? 'text-navy font-bold' : 'opacity-45'}`}>EN</span>
+            </span>
+            <span className="opacity-25 text-[10px]">|</span>
+            <span className="relative z-10 px-2.5 py-0.5">
+              {locale === 'id' && (
+                <motion.span
+                  layoutId="lang-pill"
+                  className="absolute inset-0 rounded-full bg-navy/15"
+                  transition={{ duration: 0.3, ease: EASE }}
+                />
+              )}
+              <span className={`relative ${locale === 'id' ? 'text-navy font-bold' : 'opacity-45'}`}>ID</span>
+            </span>
           </button>
 
           {/* GitHub CTA */}
@@ -99,39 +131,47 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="md:hidden bg-cream/95 backdrop-blur-md border-b border-espresso/10 shadow-warm-md animate-fade-in">
-          <ul className="section-container py-4 flex flex-col gap-3">
-            {navItems.map((item) => (
-              <li key={item.href}>
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: EASE }}
+            className="md:hidden bg-cream/95 backdrop-blur-md border-b border-espresso/10 shadow-warm-md"
+          >
+            <ul className="section-container py-4 flex flex-col gap-3">
+              {navItems.map((item) => (
+                <li key={item.href}>
+                  <button
+                    onClick={() => handleMobileNav(item.href)}
+                    className="w-full text-left text-sm font-ui font-medium text-charcoal/80 hover:text-navy py-2 border-b border-espresso/10 last:border-0 transition-colors"
+                  >
+                    {locale === 'en' ? item.en : item.id}
+                  </button>
+                </li>
+              ))}
+              <li className="flex items-center justify-between pt-2">
                 <button
-                  onClick={() => handleMobileNav(item.href)}
-                  className="w-full text-left text-sm font-ui font-medium text-charcoal/80 hover:text-navy py-2 border-b border-espresso/10 last:border-0 transition-colors"
+                  onClick={toggleLanguage}
+                  className="text-xs font-mono font-semibold px-3 py-1.5 rounded-full border border-espresso/30 text-espresso"
                 >
-                  {locale === 'en' ? item.en : item.id}
+                  {locale === 'en' ? 'EN | ID' : 'ID | EN'}
                 </button>
+                <a
+                  href="https://github.com/kyann333"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-ui font-semibold px-3.5 py-2 rounded-full bg-navy text-cream"
+                >
+                  <GitHubIcon className="w-3.5 h-3.5" />
+                  GitHub
+                </a>
               </li>
-            ))}
-            <li className="flex items-center justify-between pt-2">
-              <button
-                onClick={toggleLanguage}
-                className="text-xs font-mono font-semibold px-3 py-1.5 rounded-full border border-espresso/30 text-espresso"
-              >
-                {locale === 'en' ? 'EN | ID' : 'ID | EN'}
-              </button>
-              <a
-                href="https://github.com/kyann333"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs font-ui font-semibold px-3.5 py-2 rounded-full bg-navy text-cream"
-              >
-                <GitHubIcon className="w-3.5 h-3.5" />
-                GitHub
-              </a>
-            </li>
-          </ul>
-        </div>
-      )}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }

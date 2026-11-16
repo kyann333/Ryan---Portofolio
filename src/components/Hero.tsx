@@ -2,13 +2,27 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { useLanguage } from '@/context/LanguageContext'
 
-// ── Email obfuscation (LAYER 5: Anti-Scraping) ───────────────
-// NEVER store emails as plain strings in JSX/HTML.
-// Parts are only assembled client-side.
+// ── Email obfuscation (Anti-Scraping) ────────────────────────
 const EMAIL_PERSONAL = ['ryan070497', 'gmail.com'] as const
 const EMAIL_ACADEMIC = ['ryansurya_2529250015', 'mhs.mdp.ac.id'] as const
+
+// ── Animation config ─────────────────────────────────────────
+const EASE = [0.22, 1, 0.36, 1] as const
+
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 24 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.7, ease: EASE, delay },
+})
+
+const fadeIn = (delay = 0) => ({
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  transition: { duration: 0.6, ease: EASE, delay },
+})
 
 const ui = {
   en: {
@@ -46,32 +60,68 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center pt-16 section-spacing hero-glow bg-dot-texture"
+      className="relative min-h-screen flex items-center pt-16 section-spacing overflow-hidden"
       aria-label="Hero — Introduction"
     >
-      <div className="section-container w-full">
+      {/* ── Ambient background ───────────────────────────────── */}
+      {/* Dot texture */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(92,64,51,0.055) 1px, transparent 1px)',
+          backgroundSize: '22px 22px',
+        }}
+        aria-hidden="true"
+      />
+      {/* Hero radial glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 0%, #EAE2D3 0%, #F7F3EB 70%)' }}
+        aria-hidden="true"
+      />
+      {/* Warm orb 1 */}
+      <motion.div
+        className="absolute -top-32 -left-32 w-96 h-96 rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(234,226,211,0.55) 0%, transparent 70%)' }}
+        animate={{ x: [0, 18, 0], y: [0, 12, 0] }}
+        transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+        aria-hidden="true"
+      />
+      {/* Navy orb 2 */}
+      <motion.div
+        className="absolute bottom-0 right-0 w-80 h-80 rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(27,54,93,0.06) 0%, transparent 70%)' }}
+        animate={{ x: [0, -14, 0], y: [0, -10, 0] }}
+        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+        aria-hidden="true"
+      />
+
+      <div className="section-container w-full relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
           {/* ── Left column ──────────────────────────────── */}
           <div className="flex flex-col gap-6 order-2 lg:order-1">
             {/* Status badge */}
-            <div className="inline-flex items-center w-fit gap-2 px-3.5 py-1.5 rounded-full bg-navy/8 border border-navy/20 text-navy text-xs font-mono font-semibold">
+            <motion.div {...fadeUp(0.05)} className="inline-flex items-center w-fit gap-2 px-3.5 py-1.5 rounded-full bg-navy/8 border border-navy/20 text-navy text-xs font-mono font-semibold">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse-soft" aria-hidden="true" />
               {copy.badge}
-            </div>
+            </motion.div>
 
             {/* Headline */}
-            <h1 className="text-4xl md:text-5xl lg:text-[3.2rem] font-editorial font-bold text-charcoal leading-tight text-balance">
+            <motion.h1
+              {...fadeUp(0.15)}
+              className="text-4xl md:text-5xl lg:text-[3.2rem] font-editorial font-bold text-charcoal leading-tight text-balance"
+            >
               {copy.headline}
-            </h1>
+            </motion.h1>
 
             {/* Sub-headline */}
-            <p className="text-base md:text-lg text-charcoal/65 font-ui leading-relaxed max-w-lg">
+            <motion.p {...fadeUp(0.25)} className="text-base md:text-lg text-charcoal/65 font-ui leading-relaxed max-w-lg">
               {copy.sub}
-            </p>
+            </motion.p>
 
             {/* CTA row */}
-            <div className="flex flex-wrap gap-3 mt-1">
+            <motion.div {...fadeUp(0.35)} className="flex flex-wrap gap-3 mt-1">
               <a
                 href="#projects"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-navy text-cream font-ui font-semibold text-sm hover:bg-navy/90 transition-colors shadow-warm-md"
@@ -85,14 +135,13 @@ export default function Hero() {
               >
                 {copy.cta2}
               </a>
-            </div>
+            </motion.div>
 
             {/* Social links */}
-            <div className="flex items-center gap-3 mt-2">
+            <motion.div {...fadeIn(0.45)} className="flex items-center gap-3 mt-2">
               <SocialLink href="https://github.com/kyann333" label="GitHub" icon={<GitHubIcon />} />
               <SocialLink href="https://www.kaggle.com/ryansurya" label="Kaggle" icon={<KaggleIcon />} />
               <SocialLink href="https://instagram.com/ryannsurya" label="Instagram" icon={<InstagramIcon />} />
-              {/* Email assembled client-side only — no plain text in DOM */}
               {mounted && (
                 <a
                   href={`mailto:${EMAIL_PERSONAL[0]}@${EMAIL_PERSONAL[1]}`}
@@ -102,22 +151,26 @@ export default function Hero() {
                   <MailIcon className="w-4 h-4" />
                 </a>
               )}
-            </div>
+            </motion.div>
           </div>
 
           {/* ── Right column — Profile photo ─────────────── */}
           <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
-            <div className="relative pb-6 pt-6">
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
+            >
               {/* Decorative background rings */}
               <div className="absolute inset-0 rounded-3xl bg-espresso/6 scale-105 -rotate-2" aria-hidden="true" />
               <div className="absolute inset-0 rounded-3xl bg-navy/4 scale-110 rotate-1" aria-hidden="true" />
 
-              {/* Profile frame with double editorial border */}
+              {/* Profile frame */}
               <div className="relative w-72 h-80 md:w-80 md:h-96 rounded-3xl overflow-hidden border-2 border-espresso shadow-warm-xl">
                 <div className="absolute inset-1 rounded-2xl overflow-hidden border border-navy/30 z-10 pointer-events-none" aria-hidden="true" />
 
                 {imgError ? (
-                  /* Fallback initials avatar */
                   <div className="w-full h-full bg-cream-dark flex items-center justify-center">
                     <span className="font-editorial text-7xl font-bold text-espresso/40 select-none">RS</span>
                   </div>
@@ -133,33 +186,62 @@ export default function Hero() {
                 )}
               </div>
 
-              {/* Floating stat pills */}
-              <StatPill
-                label={copy.stat1}
-                className="absolute -bottom-5 left-0 shadow-warm-md"
-                icon="🗂️"
-              />
-              <StatPill
-                label={copy.stat2}
-                className="absolute -top-5 right-0 shadow-warm-md text-xs"
-                icon="🏛️"
-              />
-              <StatPill
-                label={copy.stat3}
-                className="absolute -bottom-5 right-0 shadow-warm-md font-mono"
-                icon="⚙️"
-              />
-            </div>
+              {/* ── Floating stat pills — DESKTOP: anchored to corners, no overlap ── */}
+              {/* Vice Chair — top right, above photo */}
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: EASE, delay: 0.5 }}
+                className="hidden sm:block absolute -top-4 -right-4 md:-right-6"
+              >
+                <StatPill label={copy.stat2} icon="🏛️" className="shadow-warm-md text-xs" />
+              </motion.div>
+
+              {/* 3+ Core Projects — left side, vertically centered */}
+              <motion.div
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, ease: EASE, delay: 0.65 }}
+                className="hidden sm:block absolute top-1/2 -translate-y-1/2 -left-4 md:-left-8"
+              >
+                <StatPill label={copy.stat1} icon="🗂️" className="shadow-warm-md" />
+              </motion.div>
+
+              {/* Laravel · Flutter · MySQL — bottom right, below photo */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: EASE, delay: 0.8 }}
+                className="hidden sm:block absolute -bottom-4 -right-4 md:-right-6"
+              >
+                <StatPill label={copy.stat3} icon="⚙️" className="shadow-warm-md font-mono" />
+              </motion.div>
+            </motion.div>
+
+            {/* ── MOBILE: pills stacked in a row below photo ──────── */}
+            <motion.div
+              {...fadeUp(0.5)}
+              className="flex sm:hidden flex-wrap justify-center gap-2 mt-4 absolute"
+              style={{ top: 'calc(100% + 1rem)', left: 0, right: 0 }}
+            >
+              <StatPill label={copy.stat2} icon="🏛️" className="text-xs" />
+              <StatPill label={copy.stat1} icon="🗂️" />
+              <StatPill label={copy.stat3} icon="⚙️" className="font-mono" />
+            </motion.div>
           </div>
         </div>
 
         {/* Scroll indicator */}
-        <div className="hidden lg:flex justify-center mt-16 opacity-40" aria-hidden="true">
+        <motion.div
+          {...fadeIn(0.9)}
+          className="hidden lg:flex justify-center mt-16 opacity-40"
+          aria-hidden="true"
+        >
           <div className="flex flex-col items-center gap-1 animate-bounce">
             <span className="font-mono text-[10px] text-espresso tracking-widest uppercase">scroll</span>
             <ChevronDown className="w-4 h-4 text-espresso" />
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )
@@ -184,7 +266,7 @@ function SocialLink({ href, label, icon }: { href: string; label: string; icon: 
 function StatPill({ label, className, icon }: { label: string; className?: string; icon?: string }) {
   return (
     <div
-      className={`bg-cream border border-espresso/15 rounded-full px-3.5 py-2 flex items-center gap-1.5 text-xs font-ui font-medium text-charcoal whitespace-nowrap ${className ?? ''}`}
+      className={`bg-cream border border-espresso/20 rounded-full px-3.5 py-2 flex items-center gap-1.5 text-xs font-ui font-medium text-charcoal whitespace-nowrap ${className ?? ''}`}
     >
       {icon && <span aria-hidden="true">{icon}</span>}
       {label}

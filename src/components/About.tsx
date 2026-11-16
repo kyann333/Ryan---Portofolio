@@ -1,6 +1,18 @@
 'use client'
 
+import { motion } from 'framer-motion'
+import { Headphones, Utensils, MessageCircle } from 'lucide-react'
 import { useLanguage } from '@/context/LanguageContext'
+import SpotlightCard from './SpotlightCard'
+
+const EASE = [0.22, 1, 0.36, 1] as const
+
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.15 },
+  transition: { duration: 0.65, ease: EASE, delay },
+})
 
 const ui = {
   en: {
@@ -10,13 +22,31 @@ const ui = {
     techTitle: 'Technical Depth',
     techDesc: "Backend & database architecture in Laravel/MySQL, cross-platform mobile UI in Flutter, and an emerging practice in Python-based data exploration on Kaggle. I architect systems with clean MVC separation, foreign-key-aware migrations, and maintainable Eloquent relationships.",
     humanTitle: 'Human-Centered Side',
-    humanDesc: "As Vice Chair of UKM Programming, an assistant programming instructor, and a volunteer at national events — I know how to communicate complex ideas simply, motivate teams, and build communities from scratch. Photography keeps my eye for composition sharp.",
+    humanDesc: "As Vice Chair of UKM Programming, an assistant programming instructor, and a volunteer at national events — I know how to communicate complex ideas simply, motivate teams, and build communities from scratch.",
     education: 'Education',
     umdpDegree: 'S1 Informatics (Bachelor of Computer Science)',
     umdpPeriod: '2025 – Present',
     smaLabel: 'SMA Xaverius 3 Palembang',
     smaGrad: 'Graduated 2025',
     location: 'Palembang, Indonesia',
+    hobbiesLabel: 'Off-Screen & Hobbies',
+    hobbies: [
+      {
+        title: 'Listening to Music',
+        desc: 'Keeps focus while coding and recharges after long sessions.',
+        icon: 'music',
+      },
+      {
+        title: 'Good Food & Culinary',
+        desc: 'Enjoying great food and hunting for favorite local spots.',
+        icon: 'food',
+      },
+      {
+        title: 'Hanging Out & Deep Talks',
+        desc: 'Exchanging stories, ideas, and casual chats with friends.',
+        icon: 'chat',
+      },
+    ],
   },
   id: {
     sectionLabel: 'Tentang',
@@ -25,15 +55,39 @@ const ui = {
     techTitle: 'Kedalaman Teknis',
     techDesc: 'Arsitektur backend & database di Laravel/MySQL, UI mobile lintas platform di Flutter, dan praktik eksplorasi data berbasis Python di Kaggle. Saya merancang sistem dengan pemisahan MVC yang bersih, migrasi foreign-key-aware, dan relasi Eloquent yang mudah dipelihara.',
     humanTitle: 'Sisi Manusiawi',
-    humanDesc: 'Sebagai Wakil Ketua UKM Programming, asisten pengajar pemrograman, dan volunteer di acara nasional — saya tahu cara mengkomunikasikan ide kompleks dengan sederhana, memotivasi tim, dan membangun komunitas dari nol. Fotografi menjaga ketajaman komposisi visual saya.',
+    humanDesc: 'Sebagai Wakil Ketua UKM Programming, asisten pengajar pemrograman, dan volunteer di acara nasional — saya tahu cara mengkomunikasikan ide kompleks dengan sederhana, memotivasi tim, dan membangun komunitas dari nol.',
     education: 'Pendidikan',
     umdpDegree: 'S1 Informatika (Sarjana Ilmu Komputer)',
     umdpPeriod: '2025 – Sekarang',
     smaLabel: 'SMA Xaverius 3 Palembang',
     smaGrad: 'Lulus 2025',
     location: 'Palembang, Indonesia',
+    hobbiesLabel: 'Hobi & Waktu Luang',
+    hobbies: [
+      {
+        title: 'Mendengarkan Musik',
+        desc: 'Menemani fokus saat ngoding dan melepas penat setelah sesi panjang.',
+        icon: 'music',
+      },
+      {
+        title: 'Makan & Kuliner',
+        desc: 'Menikmati makanan enak dan berburu kuliner favorit.',
+        icon: 'food',
+      },
+      {
+        title: 'Ngobrol Santai',
+        desc: 'Bertukar cerita, ide, dan berdiskusi santai bersama teman.',
+        icon: 'chat',
+      },
+    ],
   },
 }
+
+const hobbyIconMap = {
+  music: { Icon: Headphones, bg: 'bg-navy', text: 'text-cream' },
+  food:  { Icon: Utensils,   bg: 'bg-espresso', text: 'text-cream' },
+  chat:  { Icon: MessageCircle, bg: 'bg-navy', text: 'text-cream' },
+} as const
 
 export default function About() {
   const { locale } = useLanguage()
@@ -42,83 +96,124 @@ export default function About() {
   return (
     <section id="about" className="section-spacing hairline" aria-labelledby="about-heading">
       <div className="section-container">
-        {/* Section label */}
-        <p className="font-mono text-xs text-espresso tracking-widest uppercase mb-3">
-          {copy.sectionLabel}
-        </p>
 
-        <h2 id="about-heading" className="text-3xl md:text-4xl font-editorial font-bold text-charcoal mb-4">
+        {/* Section label */}
+        <motion.p {...fadeUp(0)} className="font-mono text-xs text-espresso tracking-widest uppercase mb-3">
+          {copy.sectionLabel}
+        </motion.p>
+
+        <motion.h2
+          {...fadeUp(0.05)}
+          id="about-heading"
+          className="text-3xl md:text-4xl font-editorial font-bold text-charcoal mb-4"
+        >
           {copy.headline}
-        </h2>
-        <p className="text-charcoal/65 font-ui text-base md:text-lg leading-relaxed max-w-2xl mb-12">
+        </motion.h2>
+        <motion.p {...fadeUp(0.1)} className="text-charcoal/65 font-ui text-base md:text-lg leading-relaxed max-w-2xl mb-12">
           {copy.sub}
-        </p>
+        </motion.p>
 
         {/* Dual-strength cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14">
           {/* Technical card */}
-          <div className="card-warm p-6 border-l-4 border-navy">
-            <div className="flex items-center gap-3 mb-3">
-              <span className="w-9 h-9 rounded-xl bg-navy/10 flex items-center justify-center text-navy" aria-hidden="true">
-                <CodeIcon className="w-5 h-5" />
-              </span>
-              <h3 className="font-editorial font-semibold text-charcoal text-lg">{copy.techTitle}</h3>
-            </div>
-            <p className="text-charcoal/65 font-ui text-sm leading-relaxed">{copy.techDesc}</p>
-            {/* Tech stack tags */}
-            <div className="flex flex-wrap gap-1.5 mt-4">
-              {['Laravel', 'PHP', 'MySQL', 'Flutter', 'Dart', 'Python'].map((t) => (
-                <span key={t} className="tech-pill">{t}</span>
-              ))}
-            </div>
-          </div>
+          <motion.div {...fadeUp(0.15)}>
+            <SpotlightCard className="card-warm p-6 border-l-4 border-navy h-full">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="w-9 h-9 rounded-xl bg-navy flex items-center justify-center text-cream" aria-hidden="true">
+                  <CodeIcon className="w-5 h-5" />
+                </span>
+                <h3 className="font-editorial font-semibold text-charcoal text-lg">{copy.techTitle}</h3>
+              </div>
+              <p className="text-charcoal/65 font-ui text-sm leading-relaxed">{copy.techDesc}</p>
+              <div className="flex flex-wrap gap-1.5 mt-4">
+                {['Laravel', 'PHP', 'MySQL', 'Flutter', 'Dart', 'Python'].map((t) => (
+                  <span key={t} className="tech-pill">{t}</span>
+                ))}
+              </div>
+            </SpotlightCard>
+          </motion.div>
 
           {/* Human side card */}
-          <div className="card-warm p-6 border-l-4 border-espresso">
-            <div className="flex items-center gap-3 mb-3">
-              <span className="w-9 h-9 rounded-xl bg-espresso/10 flex items-center justify-center text-espresso" aria-hidden="true">
-                <PeopleIcon className="w-5 h-5" />
-              </span>
-              <h3 className="font-editorial font-semibold text-charcoal text-lg">{copy.humanTitle}</h3>
-            </div>
-            <p className="text-charcoal/65 font-ui text-sm leading-relaxed">{copy.humanDesc}</p>
-            <div className="flex flex-wrap gap-1.5 mt-4">
-              {['Leadership', 'Peer Teaching', 'Photography', 'Business'].map((t) => (
-                <span key={t} className="font-mono text-xs px-2.5 py-1 rounded-full bg-espresso/8 text-espresso border border-espresso/15">{t}</span>
-              ))}
-            </div>
-          </div>
+          <motion.div {...fadeUp(0.22)}>
+            <SpotlightCard className="card-warm p-6 border-l-4 border-espresso h-full">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="w-9 h-9 rounded-xl bg-espresso flex items-center justify-center text-cream" aria-hidden="true">
+                  <PeopleIcon className="w-5 h-5" />
+                </span>
+                <h3 className="font-editorial font-semibold text-charcoal text-lg">{copy.humanTitle}</h3>
+              </div>
+              <p className="text-charcoal/65 font-ui text-sm leading-relaxed">{copy.humanDesc}</p>
+              <div className="flex flex-wrap gap-1.5 mt-4">
+                {['Leadership', 'Peer Teaching', 'Photography', 'Business'].map((t) => (
+                  <span key={t} className="font-mono text-xs px-2.5 py-1 rounded-full bg-espresso/10 text-espresso border border-espresso/20">{t}</span>
+                ))}
+              </div>
+            </SpotlightCard>
+          </motion.div>
         </div>
 
         {/* Education */}
-        <div className="hairline pt-10">
-          <p className="font-mono text-xs text-espresso tracking-widest uppercase mb-5">{copy.education}</p>
+        <div className="hairline pt-10 mb-14">
+          <motion.p {...fadeUp(0)} className="font-mono text-xs text-espresso tracking-widest uppercase mb-5">
+            {copy.education}
+          </motion.p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* UMDP */}
-            <div className="card-warm p-5 flex gap-4 items-start">
-              <span className="w-10 h-10 rounded-xl bg-navy/10 flex items-center justify-center text-navy shrink-0" aria-hidden="true">
-                <MortarboardIcon className="w-5 h-5" />
-              </span>
-              <div>
-                <p className="font-editorial font-semibold text-charcoal text-sm">Universitas Multi Data Palembang</p>
-                <p className="font-ui text-xs text-charcoal/60 mt-0.5">{copy.umdpDegree}</p>
-                <p className="font-mono text-xs text-navy mt-1">{copy.umdpPeriod}</p>
-                <p className="font-mono text-xs text-espresso/60 mt-0.5">{copy.location}</p>
-              </div>
-            </div>
-            {/* SMA */}
-            <div className="card-warm p-5 flex gap-4 items-start">
-              <span className="w-10 h-10 rounded-xl bg-espresso/10 flex items-center justify-center text-espresso shrink-0" aria-hidden="true">
-                <SchoolIcon className="w-5 h-5" />
-              </span>
-              <div>
-                <p className="font-editorial font-semibold text-charcoal text-sm">{copy.smaLabel}</p>
-                <p className="font-ui text-xs text-charcoal/60 mt-0.5">{copy.smaGrad}</p>
-                <p className="font-mono text-xs text-espresso/60 mt-1">{copy.location}</p>
-              </div>
-            </div>
+            <motion.div {...fadeUp(0.07)}>
+              <SpotlightCard className="card-warm p-5 flex gap-4 items-start h-full">
+                <span className="w-10 h-10 rounded-xl bg-navy flex items-center justify-center text-cream shrink-0" aria-hidden="true">
+                  <MortarboardIcon className="w-5 h-5" />
+                </span>
+                <div>
+                  <p className="font-editorial font-semibold text-charcoal text-sm">Universitas Multi Data Palembang</p>
+                  <p className="font-ui text-xs text-charcoal/60 mt-0.5">{copy.umdpDegree}</p>
+                  <p className="font-mono text-xs text-navy mt-1">{copy.umdpPeriod}</p>
+                  <p className="font-mono text-xs text-espresso/60 mt-0.5">{copy.location}</p>
+                </div>
+              </SpotlightCard>
+            </motion.div>
+            <motion.div {...fadeUp(0.14)}>
+              <SpotlightCard className="card-warm p-5 flex gap-4 items-start h-full">
+                <span className="w-10 h-10 rounded-xl bg-espresso flex items-center justify-center text-cream shrink-0" aria-hidden="true">
+                  <SchoolIcon className="w-5 h-5" />
+                </span>
+                <div>
+                  <p className="font-editorial font-semibold text-charcoal text-sm">{copy.smaLabel}</p>
+                  <p className="font-ui text-xs text-charcoal/60 mt-0.5">{copy.smaGrad}</p>
+                  <p className="font-mono text-xs text-espresso/60 mt-1">{copy.location}</p>
+                </div>
+              </SpotlightCard>
+            </motion.div>
           </div>
         </div>
+
+        {/* ── Off-Screen & Hobbies ───────────────────────────── */}
+        <div className="hairline pt-10">
+          <motion.p {...fadeUp(0)} className="font-mono text-xs text-espresso tracking-widest uppercase mb-5">
+            {copy.hobbiesLabel}
+          </motion.p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {copy.hobbies.map((h, i) => {
+              const { Icon, bg, text } = hobbyIconMap[h.icon as keyof typeof hobbyIconMap]
+              return (
+                <motion.div key={h.icon} {...fadeUp(i * 0.09)}>
+                  <SpotlightCard className="card-warm p-5 flex flex-col gap-3 h-full">
+                    <span
+                      className={`w-10 h-10 rounded-xl ${bg} flex items-center justify-center ${text} shrink-0`}
+                      aria-hidden="true"
+                    >
+                      <Icon size={20} />
+                    </span>
+                    <div>
+                      <p className="font-editorial font-bold text-charcoal text-sm mb-1">{h.title}</p>
+                      <p className="font-ui text-xs leading-relaxed" style={{ color: '#3B352E' }}>{h.desc}</p>
+                    </div>
+                  </SpotlightCard>
+                </motion.div>
+              )
+            })}
+          </div>
+        </div>
+
       </div>
     </section>
   )

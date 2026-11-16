@@ -1,11 +1,10 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import { useLanguage } from '@/context/LanguageContext'
 
 // ── LAYER 5: Anti-Scraping Email Obfuscation ──────────────────
-// Email parts are NEVER stored as plain concatenated strings.
-// They are assembled only on the client, only when needed.
 const EMAIL_PARTS = {
   personal: { user: 'ryan070497', domain: 'gmail.com' },
   academic: { user: 'ryansurya_2529250015', domain: 'mhs.mdp.ac.id' },
@@ -16,11 +15,20 @@ function assembleEmail(which: keyof typeof EMAIL_PARTS): string {
   return `${user}@${domain}`
 }
 
+const EASE = [0.22, 1, 0.36, 1] as const
+
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.1 },
+  transition: { duration: 0.6, ease: EASE, delay },
+})
+
 const ui = {
   en: {
     sectionLabel: 'Contact',
-    headline: "Let's Build Something Together",
-    sub: "Open to collaboration on web systems, mobile apps, and community-driven tech projects. Based in Palembang — available remotely.",
+    headline: 'Get in Touch',
+    sub: "Based in Palembang — available remotely. If you have a project, an idea, or just want to connect, feel free to reach out via email.",
     copyPersonal: 'Copy Personal Email',
     copyAcademic: 'Copy Academic Email',
     copied: 'Email copied!',
@@ -37,8 +45,8 @@ const ui = {
   },
   id: {
     sectionLabel: 'Kontak',
-    headline: 'Mari Bangun Sesuatu Bersama',
-    sub: 'Terbuka untuk kolaborasi pada sistem web, aplikasi mobile, dan proyek teknologi berbasis komunitas. Berdomisili di Palembang — tersedia secara remote.',
+    headline: 'Hubungi Saya',
+    sub: 'Berdomisili di Palembang — tersedia secara remote. Kalau punya proyek, ide, atau sekadar ingin berkenalan, jangan ragu untuk menghubungi lewat email.',
     copyPersonal: 'Salin Email Pribadi',
     copyAcademic: 'Salin Email Akademik',
     copied: 'Email disalin!',
@@ -64,7 +72,6 @@ export default function Contact() {
   const [message, setMessage] = useState('')
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // Client-side only flag to enable email rendering (anti-scraping)
   const [mounted, setMounted] = useState(false)
   useEffect(() => { setMounted(true) }, [])
 
@@ -81,7 +88,6 @@ export default function Contact() {
       await navigator.clipboard.writeText(email)
       showToast(copy.copied)
     } catch {
-      // Fallback for older browsers
       const el = document.createElement('textarea')
       el.value = email
       el.setAttribute('readonly', '')
@@ -98,23 +104,20 @@ export default function Contact() {
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault()
     if (!mounted) return
-
-    // LAYER 5: Sanitize & encodeURIComponent — prevent URI injection
     const safeSubject = encodeURIComponent(subject.trim().slice(0, 200))
-    const safeName = encodeURIComponent(name.trim().slice(0, 100))
     const safeBody = encodeURIComponent(
       `From: ${name.trim().slice(0, 100)}\n\n${message.trim().slice(0, 2000)}`
     )
     const email = assembleEmail('personal')
-    // Open mailto: — 100% static-hosting compatible, no backend needed
     window.location.href = `mailto:${email}?subject=${safeSubject}&body=${safeBody}`
   }
 
   return (
     <section id="contact" className="section-spacing hairline" aria-labelledby="contact-heading">
       <div className="section-container">
-        {/* CTA card — Deep Navy background */}
-        <div className="rounded-2xl bg-navy p-8 md:p-12 mb-12">
+
+        {/* Info card — Deep Navy background */}
+        <motion.div {...fadeUp(0)} className="rounded-2xl bg-navy p-8 md:p-12 mb-12">
           <p className="font-mono text-xs text-cream/50 tracking-widest uppercase mb-3">
             {copy.sectionLabel}
           </p>
@@ -160,10 +163,10 @@ export default function Contact() {
               </>
             )}
           </div>
-        </div>
+        </motion.div>
 
         {/* Contact form — mailto: based, no backend */}
-        <div className="max-w-xl mx-auto">
+        <motion.div {...fadeUp(0.1)} className="max-w-xl mx-auto">
           <h3 className="font-editorial font-semibold text-charcoal text-xl mb-6">{copy.sendMessage}</h3>
           <form onSubmit={handleSendMessage} className="flex flex-col gap-4" noValidate>
             <div>
@@ -222,7 +225,7 @@ export default function Contact() {
               {copy.sendBtn}
             </button>
           </form>
-        </div>
+        </motion.div>
       </div>
 
       {/* Toast notification */}

@@ -73,7 +73,7 @@ export const experiences: Experience[] = [
       id: 'Pelatih Esports & Game Kompetitif — Tekken 8 & Naruto NS',
     },
     organization: 'Community / Independent',
-    period: '2024 – Present',
+    period: '2023 – 2025',
     category: 'Tech & Teaching',
     description: {
       en: 'Coached competitive players in Tekken 8 and Naruto Ninja Storm — focusing on frame data analysis, positioning strategy, in-game decision-making, and mental composure under pressure.',
@@ -156,7 +156,7 @@ export const experiences: Experience[] = [
     id: 'ppbd-member',
     role: { en: 'Member, PPBD Organization', id: 'Anggota PPBD' },
     organization: 'PPBD',
-    period: '2024 – 2026',
+    period: '2024 – 2025',
     category: 'Leadership & Events',
     description: {
       en: 'Active member contributing to committee planning and execution of organizational activities.',
