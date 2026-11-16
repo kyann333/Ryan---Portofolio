@@ -107,7 +107,7 @@ export default function Hero() {
 
           {/* ── Right column — Profile photo ─────────────── */}
           <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
-            <div className="relative">
+            <div className="relative pb-6 pt-6">
               {/* Decorative background rings */}
               <div className="absolute inset-0 rounded-3xl bg-espresso/6 scale-105 -rotate-2" aria-hidden="true" />
               <div className="absolute inset-0 rounded-3xl bg-navy/4 scale-110 rotate-1" aria-hidden="true" />
@@ -136,17 +136,17 @@ export default function Hero() {
               {/* Floating stat pills */}
               <StatPill
                 label={copy.stat1}
-                className="absolute -bottom-4 -left-6 shadow-warm-md"
+                className="absolute -bottom-5 left-0 shadow-warm-md"
                 icon="🗂️"
               />
               <StatPill
                 label={copy.stat2}
-                className="absolute -top-4 -right-4 shadow-warm-md text-xs"
+                className="absolute -top-5 right-0 shadow-warm-md text-xs"
                 icon="🏛️"
               />
               <StatPill
                 label={copy.stat3}
-                className="absolute bottom-16 -right-6 shadow-warm-md font-mono"
+                className="absolute -bottom-5 right-0 shadow-warm-md font-mono"
                 icon="⚙️"
               />
             </div>
