@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Custom base styles ──────────────────────────────────── */
+@layer base {
+  :root {
+    --color-cream: #F7F3EB;
+    --color-cream-dark: #EAE2D3;
+    --color-charcoal: #1C1B18;
+    --color-navy: #1B365D;
+    --color-espresso: #5C4033;
+    --color-espresso-light: #8C6D53;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-cream text-charcoal font-ui;
+    background-color: #F7F3EB;
+    color: #1C1B18;
+    min-height: 100vh;
+  }
+
+  /* Headings use editorial font */
+  h1, h2, h3, h4 {
+    @apply font-editorial;
+    letter-spacing: -0.01em;
+  }
+
+  /* Tech/code tags use mono */
+  code, kbd, pre {
+    @apply font-mono;
+  }
+
+  /* Focus ring accessible */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-navy;
+  }
+}
+
+/* ── Custom utilities ────────────────────────────────────── */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Warm card base */
+  .card-warm {
+    @apply bg-cream-dark rounded-xl shadow-warm-sm;
+    border: 1px solid rgba(92, 64, 51, 0.10);
+  }
+
+  /* Section container max-width */
+  .section-container {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Section spacing */
+  .section-spacing {
+    @apply py-16 md:py-24;
+  }
+
+  /* Espresso hairline divider */
+  .hairline {
+    @apply border-t;
+    border-color: rgba(92, 64, 51, 0.15);
+  }
+
+  /* Tech pill badge */
+  .tech-pill {
+    @apply font-mono text-xs px-2.5 py-1 rounded-full text-navy border;
+    background-color: rgba(27, 54, 93, 0.08);
+    border-color: rgba(27, 54, 93, 0.15);
+  }
+
+  /* Status badge completed */
+  .badge-completed {
+    @apply text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200;
+  }
+
+  /* Status badge in-progress */
+  .badge-inprogress {
+    @apply text-xs font-semibold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200;
+  }
+}
+
+/* ── Scrollbar styling ───────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F7F3EB;
+}
+::-webkit-scrollbar-thumb {
+  background: #8C6D53;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #5C4033;
+}
+
+/* ── Smooth section transitions ─────────────────────────── */
+section {
+  transition: opacity 0.2s ease;
+}
