@@ -31,9 +31,7 @@ const ui = {
     sub: "A communicative Full-Stack & AI Builder — merging software engineering expertise with real organizational leadership, peer teaching, and a business-first mindset.",
     cta1: 'Explore Projects',
     cta2: 'Contact Me',
-    stat1: '3+ Core Projects',
     stat2: 'Vice Chair @ UKM Programming',
-    stat3: 'Laravel · Flutter · MySQL',
     imgAlt: 'Ryan Surya — Full-Stack Developer',
   },
   id: {
@@ -42,9 +40,7 @@ const ui = {
     sub: 'Full-Stack & AI Builder yang komunikatif — memadukan keahlian rekayasa perangkat lunak dengan kepemimpinan organisasi nyata, pengajaran sebaya, dan pola pikir bisnis.',
     cta1: 'Lihat Proyek',
     cta2: 'Hubungi Saya',
-    stat1: '3+ Proyek Utama',
     stat2: 'Wakil Ketua @ UKM Programming',
-    stat3: 'Laravel · Flutter · MySQL',
     imgAlt: 'Ryan Surya — Full-Stack Developer',
   },
 }
@@ -197,25 +193,6 @@ export default function Hero() {
                 <StatPill label={copy.stat2} icon="🏛️" className="shadow-warm-md text-xs" />
               </motion.div>
 
-              {/* 3+ Core Projects — left side, vertically centered */}
-              <motion.div
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, ease: EASE, delay: 0.65 }}
-                className="hidden sm:block absolute top-1/2 -translate-y-1/2 -left-4 md:-left-8"
-              >
-                <StatPill label={copy.stat1} icon="🗂️" className="shadow-warm-md" />
-              </motion.div>
-
-              {/* Laravel · Flutter · MySQL — bottom right, below photo */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: EASE, delay: 0.8 }}
-                className="hidden sm:block absolute -bottom-4 -right-4 md:-right-6"
-              >
-                <StatPill label={copy.stat3} icon="⚙️" className="shadow-warm-md font-mono" />
-              </motion.div>
             </motion.div>
 
             {/* ── MOBILE: pills stacked in a row below photo ──────── */}
@@ -225,8 +202,6 @@ export default function Hero() {
               style={{ top: 'calc(100% + 1rem)', left: 0, right: 0 }}
             >
               <StatPill label={copy.stat2} icon="🏛️" className="text-xs" />
-              <StatPill label={copy.stat1} icon="🗂️" />
-              <StatPill label={copy.stat3} icon="⚙️" className="font-mono" />
             </motion.div>
           </div>
         </div>

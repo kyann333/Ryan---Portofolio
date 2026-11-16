@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://ryansurya.vercel.app',
+    url: 'https://ryan-surya-portfolio.vercel.app',
     title: 'Ryan Surya — Full-Stack & AI Builder',
     description:
       'Full-Stack Web & Mobile Developer • Laravel • Flutter • MySQL • Vice Chair UKM Programming @ UMDP Palembang',
