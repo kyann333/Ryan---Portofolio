@@ -1,76 +1,75 @@
 // ============================================================
-// src/data/certificates.ts
-// Certificate & achievement entries for the Certificates section.
+// src/data/certificates.ts — Curated high-impact certificates
 // ─────────────────────────────────────────────────────────────
 // HOW TO ADD A NEW CERTIFICATE:
-//   1. Copy any existing object below.
-//   2. Assign a unique `id` string (kebab-case, e.g. "cert-web-dev-2025").
+//   1. Place the image in /public/images/certificates/
+//   2. Copy any entry below, give a unique `id`, fill all fields.
 //   3. Set `category`: 'Programming & Tech' | 'Leadership & Organization' | 'Competition'
-//   4. Place the certificate image in /public/certificates/ and set `imageUrl`.
-//   5. Set `credentialUrl` if there is a verifiable online link.
-//   6. Fill all bilingual fields (en / id) for `title` and `description`.
 // ============================================================
 
 import type { Certificate } from '@/types/portfolio'
 
 export const certificates: Certificate[] = [
-  // ── Example Entry 1 ─────────────────────────────────────
-  // Replace this with your first real certificate.
   {
-    id: 'cert-laravel-basics-2024',
+    id: 'cert-ifest-competitive-programming',
     title: {
-      en: 'Laravel Framework Fundamentals',
-      id: 'Dasar-Dasar Framework Laravel',
+      en: 'Competitive Programming — IFEST 6.0',
+      id: 'Competitive Programming — IFEST 6.0',
     },
-    issuer: 'Dicoding / Udemy',
-    date: '2024-08',
-    category: 'Programming & Tech',
-    // Place file at: /public/certificates/cert-laravel-basics-2024.jpg
-    imageUrl: '/certificates/cert-laravel-basics-2024.jpg',
-    credentialUrl: undefined,
+    issuer: 'HIMIF — Universitas Multi Data Palembang',
+    date: '2026-05',
+    category: 'Competition',
+    imageUrl: '/images/certificates/cert-ifest.jpg',
     description: {
-      en: 'Completed comprehensive training on Laravel MVC architecture, Eloquent ORM, routing, and authentication.',
-      id: 'Menyelesaikan pelatihan komprehensif tentang arsitektur Laravel MVC, Eloquent ORM, routing, dan autentikasi.',
+      en: 'Participated as a Competitive Programming member in IFEST 6.0 — an internal tech festival held by HIMIF UMDP on 31 May 2026.',
+      id: 'Berpartisipasi sebagai Anggota Competitive Programming dalam IFEST 6.0 — festival teknologi internal HIMIF UMDP pada 31 Mei 2026.',
     },
   },
-
-  // ── Example Entry 2 ─────────────────────────────────────
-  // Replace this with your second real certificate.
   {
-    id: 'cert-leadership-ukm-2026',
+    id: 'cert-pkkmb-divisi-acara',
     title: {
-      en: 'Vice Chair Certificate — UKM Programming',
-      id: 'Sertifikat Wakil Ketua — UKM Programming',
+      en: 'Committee Member — PKKMB UMDP 2026 (Events Division)',
+      id: 'Panitia — PKKMB UMDP 2026 (Divisi Acara)',
     },
     issuer: 'Universitas Multi Data Palembang',
-    date: '2026-03',
+    date: '2026-08',
     category: 'Leadership & Organization',
-    // Place file at: /public/certificates/cert-leadership-ukm-2026.jpg
-    imageUrl: '/certificates/cert-leadership-ukm-2026.jpg',
-    credentialUrl: undefined,
+    imageUrl: '/images/certificates/cert-pkkmb.png',
     description: {
-      en: 'Official recognition as Vice Chair of the UKM Programming student organization at UMDP.',
-      id: 'Pengakuan resmi sebagai Wakil Ketua UKM Programming di Universitas Multi Data Palembang.',
+      en: 'Recognized for participation as Events Division committee member in PKKMB UMDP 2026 — the university-wide new student orientation program.',
+      id: 'Diakui atas partisipasi sebagai Divisi Acara panitia PKKMB UMDP 2026 — program orientasi mahasiswa baru tingkat universitas.',
     },
   },
-
-  // ── Template for future entries ─────────────────────────
-  // {
-  //   id: 'cert-YOUR-ID-HERE',
-  //   title: {
-  //     en: 'Certificate Title in English',
-  //     id: 'Judul Sertifikat dalam Bahasa Indonesia',
-  //   },
-  //   issuer: 'Issuing Organization Name',
-  //   date: 'YYYY-MM',
-  //   category: 'Programming & Tech', // or 'Leadership & Organization' | 'Competition'
-  //   imageUrl: '/certificates/cert-YOUR-ID-HERE.jpg',
-  //   credentialUrl: 'https://verify.example.com/credential/123',
-  //   description: {
-  //     en: 'What you learned or achieved.',
-  //     id: 'Apa yang Anda pelajari atau capai.',
-  //   },
-  // },
+  {
+    id: 'cert-coaching-ukm-programming',
+    title: {
+      en: 'Coaching Program — UKM Programming 2025',
+      id: 'Program Coaching — UKM Programming 2025',
+    },
+    issuer: 'UKM Programming — Universitas Multi Data Palembang',
+    date: '2025-12',
+    category: 'Programming & Tech',
+    imageUrl: '/images/certificates/cert-coaching.jpg',
+    description: {
+      en: 'Participated in the UKM Programming Coaching Program 2025 — focused on practical programming skill development and competency strengthening (17 Oct – 20 Dec 2025).',
+      id: 'Berpartisipasi dalam Coaching Program UKM Programming 2025 — berfokus pada pengembangan keterampilan pemrograman praktis dan penguatan kompetensi (17 Okt – 20 Des 2025).',
+    },
+  },
+  {
+    id: 'cert-buddhayana-volunteer',
+    title: {
+      en: 'Certificate of Appreciation — Buddhayana Run 2025',
+      id: 'Sertifikat Penghargaan — Buddhayana Run 2025',
+    },
+    issuer: 'KBI Buddhayana Run — Sekber PMVBI Sumatera Selatan',
+    date: '2025-07',
+    category: 'Leadership & Organization',
+    imageUrl: '/images/certificates/cert-buddhayana.jpg',
+    description: {
+      en: 'Recognized for invaluable support and contribution as a Volunteer in Buddhayana Run 2025, Palembang — a national-scale running event.',
+      id: 'Diakui atas dukungan dan kontribusi berharga sebagai Volunteer dalam Buddhayana Run 2025, Palembang — event lari berskala nasional.',
+    },
+  },
 ]
 
 export const certificateCategories = [

@@ -108,3 +108,14 @@
 section {
   transition: opacity 0.2s ease;
 }
+
+/* ── Ambient dot texture overlay ────────────────────────── */
+.bg-dot-texture {
+  background-image: radial-gradient(circle, rgba(92,64,51,0.06) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* ── Hero radial glow ────────────────────────────────────── */
+.hero-glow {
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, #EAE2D3 0%, #F7F3EB 70%);
+}

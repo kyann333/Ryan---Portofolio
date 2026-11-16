@@ -46,7 +46,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center pt-16 section-spacing"
+      className="min-h-screen flex items-center pt-16 section-spacing hero-glow bg-dot-texture"
       aria-label="Hero — Introduction"
     >
       <div className="section-container w-full">
@@ -123,10 +123,10 @@ export default function Hero() {
                   </div>
                 ) : (
                   <Image
-                    src="/images/profile-ryan.jpg"
+                    src="/images/profile-ryan-sitting.jpg"
                     alt={copy.imgAlt}
                     fill
-                    className="object-cover object-top"
+                    className="object-cover object-center"
                     priority
                     onError={() => setImgError(true)}
                   />

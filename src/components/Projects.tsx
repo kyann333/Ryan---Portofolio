@@ -52,12 +52,33 @@ export default function Projects() {
   const [reposLoading, setReposLoading] = useState(true)
   const [reposError, setReposError] = useState(false)
 
+  // ── Language overrides: GitHub often misdetects Flutter repos as C++ ──
+  // Map repo name substrings → correct language display string.
+  const LANG_OVERRIDES: Record<string, string> = {
+    privatenote: 'Dart • Flutter',
+    lokalrata:   'PHP • Laravel • MySQL',
+    event:       'PHP • Laravel • MySQL',
+    'event-management': 'PHP • Laravel • MySQL',
+  }
+  // Languages to suppress (Flutter build artifacts, etc.)
+  const SUPPRESS_LANGS = new Set(['C++', 'CMake', 'Batchfile', 'Makefile', 'Shell', 'Objective-C'])
+
+  function resolveLanguage(name: string, raw: string | null): string | null {
+    const lower = name.toLowerCase()
+    for (const [key, override] of Object.entries(LANG_OVERRIDES)) {
+      if (lower.includes(key)) return override
+    }
+    if (raw && SUPPRESS_LANGS.has(raw)) return 'Dart • Flutter'
+    return raw
+  }
+
   // ── Fetch GitHub repos with AbortController (safe, no API key) ──
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const controller = new AbortController()
     const timeout = setTimeout(() => controller.abort(), 8000)
 
-    fetch('https://api.github.com/users/kyann333/repos?sort=updated&per_page=4', {
+    fetch('https://api.github.com/users/kyann333/repos?sort=updated&per_page=6', {
       signal: controller.signal,
       headers: { Accept: 'application/vnd.github+json' },
     })
@@ -76,6 +97,8 @@ export default function Projects() {
               typeof (r as GitHubRepo).name === 'string' &&
               typeof (r as GitHubRepo).html_url === 'string'
           )
+          // Apply language overrides and filter forks
+          .map((r) => ({ ...r, language: resolveLanguage(r.name, r.language) }))
           .slice(0, 4)
         setRepos(validated)
         setReposLoading(false)
