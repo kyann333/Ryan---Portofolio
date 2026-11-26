@@ -2,10 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { LanguageProvider } from '@/context/LanguageContext'
 
-// ── Font variables via Google Fonts CDN link in layout head ──
-// We use CSS variables and load fonts via <link> in <head> for
-// maximum compatibility — avoids next/font network requirement at build time.
-// The CSS variable names match tailwind.config.ts fontFamily definitions.
+// ── Font variables are defined in globals.css to avoid inline-style hydration issues. ──
 
 // ── SEO Metadata ─────────────────────────────────────────────
 export const metadata: Metadata = {
@@ -71,14 +68,6 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
-        {/* Map font names to CSS variables for Tailwind fontFamily config */}
-        <style>{`
-          :root {
-            --font-lora: 'Lora';
-            --font-plus-jakarta: 'Plus Jakarta Sans';
-            --font-jetbrains: 'JetBrains Mono';
-          }
-        `}</style>
       </head>
       <body className="antialiased">
         <LanguageProvider>{children}</LanguageProvider>

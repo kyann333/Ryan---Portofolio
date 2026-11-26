@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { motion } from 'framer-motion'
 import { useLanguage } from '@/context/LanguageContext'
 import { projects } from '@/data/projects'
 import type { Project, GitHubRepo } from '@/types/portfolio'
@@ -23,6 +24,8 @@ const ui = {
     stars: 'stars',
     fetchError: 'Could not load GitHub repos. Check back soon!',
     loading: 'Loading repositories…',
+    completed: 'Completed',
+    inProgress: 'In progress',
   },
   id: {
     sectionLabel: 'Proyek',
@@ -41,6 +44,8 @@ const ui = {
     stars: 'bintang',
     fetchError: 'Tidak dapat memuat repositori GitHub. Coba lagi nanti!',
     loading: 'Memuat repositori…',
+    completed: 'Selesai',
+    inProgress: 'Dalam proses',
   },
 }
 
@@ -144,16 +149,24 @@ export default function Projects() {
         </h2>
 
         {/* ── Part A: Curated case studies ─────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {sortedProjects.map((project) => (
-            <ProjectCard
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
+          {sortedProjects.map((project, index) => (
+            <motion.div
               key={project.id}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.12 }}
+              transition={{ duration: 0.42, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+              className="h-full"
+            >
+            <ProjectCard
               project={project}
               locale={locale}
               t={t}
               copy={copy}
               onViewArchitecture={() => setModalProject(project)}
             />
+            </motion.div>
           ))}
         </div>
 
@@ -232,19 +245,20 @@ function ProjectCard({
   onViewArchitecture: () => void
 }) {
   return (
-    <article className="card-warm flex flex-col h-full hover:shadow-warm-md transition-shadow">
+    <article className="card-warm flex flex-col h-full overflow-hidden">
+      <ProjectPreview project={project} />
       {/* Header */}
       <div className="p-5 pb-0">
         <div className="flex items-start justify-between gap-2 mb-3">
           <h3 className="font-editorial font-bold text-charcoal text-lg leading-tight">{project.title}</h3>
           {project.status === 'completed' ? (
-            <span className="badge-completed shrink-0">✓ Completed</span>
+            <span className="badge-completed shrink-0">✓ {copy.completed}</span>
           ) : (
-            <span className="badge-inprogress shrink-0 animate-pulse-soft">⚡ In Dev</span>
+            <span className="badge-inprogress shrink-0">● {copy.inProgress}</span>
           )}
         </div>
         <p className="font-ui text-xs text-espresso font-medium mb-2">{t(project.subtitle)}</p>
-        <p className="font-ui text-sm text-charcoal/65 leading-relaxed">{t(project.description)}</p>
+        <p className="font-ui text-sm text-charcoal/65 leading-relaxed line-clamp-3">{t(project.description)}</p>
 
         {/* Progress bar for in-progress projects */}
         {project.status === 'in-progress' && project.progressPercent !== undefined && (
@@ -279,12 +293,13 @@ function ProjectCard({
       </div>
 
       {/* Footer actions */}
-      <div className="mt-auto p-5 pt-3 flex gap-2 flex-wrap border-t border-espresso/8">
+      <div className="mt-auto p-5 pt-3 flex gap-2 flex-wrap border-t border-charcoal/5">
         <button
           onClick={onViewArchitecture}
-          className="text-xs font-ui font-semibold px-3.5 py-2 rounded-lg bg-navy/8 text-navy border border-navy/15 hover:bg-navy/15 transition-colors"
+          className="group inline-flex items-center gap-1.5 text-xs font-ui font-semibold px-3.5 py-2 rounded-lg bg-navy/8 text-navy border border-navy/15 hover:bg-navy/15 transition-colors"
         >
           {copy.viewArch}
+          <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">→</span>
         </button>
         {project.githubUrl && (
           <a
@@ -298,6 +313,46 @@ function ProjectCard({
         )}
       </div>
     </article>
+  )
+}
+
+function ProjectPreview({ project }: { project: Project }) {
+  const palettes: Record<string, string> = {
+    lokalrata: 'from-[#293d72] via-[#435ba1] to-[#6e9a92]',
+    'event-management': 'from-[#3c397b] via-[#6657a6] to-[#b17d73]',
+    'private-note-ai': 'from-[#263951] via-[#376477] to-[#6d9d97]',
+  }
+
+  return (
+    <div
+      className={`relative isolate h-36 overflow-hidden bg-gradient-to-br ${palettes[project.id] ?? 'from-navy to-espresso'}`}
+      aria-hidden="true"
+    >
+      <div className="absolute inset-0 opacity-20 bg-dot-texture" />
+      <div className="absolute -right-8 -top-14 h-40 w-40 rounded-full border border-white/20" />
+      <div className="absolute -right-1 -top-7 h-28 w-28 rounded-full border border-white/15" />
+      <div className="absolute bottom-[-4rem] left-[-2rem] h-36 w-36 rounded-full bg-white/10 blur-2xl" />
+      <div className="relative flex h-full flex-col justify-between p-4">
+        <div className="flex items-center justify-between">
+          <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-white/75">Project / {String(project.order).padStart(2, '0')}</span>
+          <span className="h-2 w-2 rounded-full bg-white/70 shadow-[0_0_12px_rgba(255,255,255,0.65)]" />
+        </div>
+        <div className="flex items-end justify-between gap-3">
+          <div className="flex flex-wrap gap-1.5">
+            {project.techStack.slice(0, 3).map((tech) => (
+              <span key={tech} className="rounded-full border border-white/25 bg-white/10 px-2 py-1 font-mono text-[9px] text-white/90 backdrop-blur-sm">
+                {tech}
+              </span>
+            ))}
+          </div>
+          <div className="flex h-11 w-14 shrink-0 flex-col justify-center gap-1.5 rounded-lg border border-white/25 bg-white/10 px-2.5 backdrop-blur-sm">
+            <span className="h-1 w-6 rounded-full bg-white/75" />
+            <span className="h-1 w-9 rounded-full bg-white/40" />
+            <span className="h-1 w-4 rounded-full bg-white/55" />
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -331,7 +386,7 @@ function ArchitectureModal({
       />
 
       {/* Panel */}
-      <div className="relative bg-cream rounded-2xl shadow-warm-xl w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col">
+      <div className="relative bg-white rounded-2xl shadow-warm-xl w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col border border-white/80">
         {/* Modal header */}
         <div className="flex items-start justify-between p-6 pb-4 border-b border-espresso/10">
           <div>

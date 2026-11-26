@@ -28,19 +28,21 @@ const ui = {
   en: {
     badge: 'S1 Informatics Student · Semester 3 @ UMDP',
     headline: 'Building practical web systems, mobile apps, and leading tech communities.',
-    sub: "A communicative Full-Stack & AI Builder — merging software engineering expertise with real organizational leadership, peer teaching, and a business-first mindset.",
+    sub: 'Full-Stack & AI Builder combining software engineering with hands-on leadership, peer teaching, and a business-first mindset.',
     cta1: 'Explore Projects',
     cta2: 'About Me',
     stat2: 'Vice Chair @ UKM Programming',
+    photoRole: 'Full-Stack & AI Builder',
     imgAlt: 'Ryan Surya — Full-Stack Developer',
   },
   id: {
     badge: 'Mahasiswa S1 Informatika · Semester 3 @ UMDP',
     headline: 'Membangun sistem web praktis, aplikasi mobile, dan memimpin komunitas teknologi.',
-    sub: 'Full-Stack & AI Builder yang komunikatif — memadukan keahlian rekayasa perangkat lunak dengan kepemimpinan organisasi nyata, pengajaran sebaya, dan pola pikir bisnis.',
+    sub: 'Full-Stack & AI Builder yang memadukan rekayasa perangkat lunak dengan kepemimpinan organisasi, pengajaran sebaya, dan pola pikir bisnis.',
     cta1: 'Lihat Proyek',
     cta2: 'Tentang Saya',
     stat2: 'Wakil Ketua @ UKM Programming',
+    photoRole: 'Full-Stack & AI Builder',
     imgAlt: 'Ryan Surya — Full-Stack Developer',
   },
 }
@@ -62,23 +64,18 @@ export default function Hero() {
       {/* ── Ambient background ───────────────────────────────── */}
       {/* Dot texture */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: 'radial-gradient(circle, rgba(92,64,51,0.055) 1px, transparent 1px)',
-          backgroundSize: '22px 22px',
-        }}
+        className="absolute inset-0 pointer-events-none bg-dot-texture"
         aria-hidden="true"
       />
       {/* Hero radial glow */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 0%, #EAE2D3 0%, #F7F3EB 70%)' }}
+        className="absolute inset-0 pointer-events-none hero-glow"
         aria-hidden="true"
       />
       {/* Warm orb 1 */}
       <motion.div
         className="absolute -top-32 -left-32 w-96 h-96 rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(234,226,211,0.55) 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, rgba(210,205,193,0.46) 0%, transparent 70%)' }}
         animate={{ x: [0, 18, 0], y: [0, 12, 0] }}
         transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
         aria-hidden="true"
@@ -86,7 +83,7 @@ export default function Hero() {
       {/* Navy orb 2 */}
       <motion.div
         className="absolute bottom-0 right-0 w-80 h-80 rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(27,54,93,0.06) 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, rgba(52,74,154,0.08) 0%, transparent 70%)' }}
         animate={{ x: [0, -14, 0], y: [0, -10, 0] }}
         transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
         aria-hidden="true"
@@ -120,14 +117,14 @@ export default function Hero() {
             <motion.div {...fadeUp(0.35)} className="flex flex-wrap gap-3 mt-1">
               <a
                 href="#projects"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-navy text-cream font-ui font-semibold text-sm hover:bg-navy/90 transition-colors shadow-warm-md"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-navy text-cream font-ui font-semibold text-sm hover:bg-navy/90 hover:-translate-y-0.5 transition-all duration-200 shadow-warm-md"
               >
                 {copy.cta1}
                 <ArrowRight className="w-4 h-4" />
               </a>
               <a
                 href="#about"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-espresso text-espresso font-ui font-semibold text-sm hover:bg-espresso/8 transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-espresso/30 text-espresso font-ui font-semibold text-sm hover:bg-white hover:border-espresso/50 hover:-translate-y-0.5 transition-all duration-200"
               >
                 {copy.cta2}
               </a>
@@ -151,7 +148,7 @@ export default function Hero() {
           </div>
 
           {/* ── Right column — Profile photo ─────────────── */}
-          <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
+          <div className="order-1 lg:order-2 relative flex justify-center lg:justify-end">
             <motion.div
               className="relative"
               initial={{ opacity: 0, scale: 0.95 }}
@@ -163,7 +160,7 @@ export default function Hero() {
               <div className="absolute inset-0 rounded-3xl bg-navy/4 scale-110 rotate-1" aria-hidden="true" />
 
               {/* Profile frame */}
-              <div className="relative w-72 h-80 md:w-80 md:h-96 rounded-3xl overflow-hidden border-2 border-espresso shadow-warm-xl">
+              <div className="group relative w-72 h-80 md:w-80 md:h-96 rounded-3xl overflow-hidden border border-white/80 shadow-warm-xl ring-1 ring-charcoal/10">
                 <div className="absolute inset-1 rounded-2xl overflow-hidden border border-navy/30 z-10 pointer-events-none" aria-hidden="true" />
 
                 {imgError ? (
@@ -175,11 +172,15 @@ export default function Hero() {
                     src="/images/profile-ryan-sitting.jpg"
                     alt={copy.imgAlt}
                     fill
-                    className="object-cover object-center"
+                    className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.035]"
                     priority
                     onError={() => setImgError(true)}
                   />
                 )}
+                <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-charcoal/75 via-charcoal/25 to-transparent px-5 pb-5 pt-16">
+                  <p className="font-editorial text-white text-lg font-bold tracking-wide">Ryan Surya</p>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/75">{copy.photoRole}</p>
+                </div>
               </div>
 
               {/* ── Floating stat pills — DESKTOP: anchored to corners, no overlap ── */}
@@ -198,8 +199,7 @@ export default function Hero() {
             {/* ── MOBILE: pills stacked in a row below photo ──────── */}
             <motion.div
               {...fadeUp(0.5)}
-              className="flex sm:hidden flex-wrap justify-center gap-2 mt-4 absolute"
-              style={{ top: 'calc(100% + 1rem)', left: 0, right: 0 }}
+              className="absolute top-full mt-4 flex sm:hidden flex-wrap justify-center gap-2"
             >
               <StatPill label={copy.stat2} icon="🏛️" className="text-xs" />
             </motion.div>
@@ -241,7 +241,7 @@ function SocialLink({ href, label, icon }: { href: string; label: string; icon: 
 function StatPill({ label, className, icon }: { label: string; className?: string; icon?: string }) {
   return (
     <div
-      className={`bg-cream border border-espresso/20 rounded-full px-3.5 py-2 flex items-center gap-1.5 text-xs font-ui font-medium text-charcoal whitespace-nowrap ${className ?? ''}`}
+      className={`bg-white/95 border border-charcoal/10 rounded-full px-3.5 py-2 flex items-center gap-1.5 text-xs font-ui font-medium text-charcoal whitespace-nowrap shadow-warm-sm backdrop-blur-sm ${className ?? ''}`}
     >
       {icon && <span aria-hidden="true">{icon}</span>}
       {label}

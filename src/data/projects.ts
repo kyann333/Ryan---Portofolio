@@ -18,8 +18,8 @@ export const projects: Project[] = [
       id: 'Platform Rantai Pasok Langsung UMKM & Petani Lokal',
     },
     description: {
-      en: 'LokalRata is a full-stack web platform that cuts out middlemen by directly connecting local farmers/SMEs with buyers. Built with Laravel MVC, it features transparent pricing with market comparison, automated inventory logging, and a financing eligibility score system.',
-      id: 'LokalRata adalah platform web full-stack yang memotong rantai tengkulak dengan menghubungkan langsung petani/UMKM lokal kepada pembeli. Dibangun dengan Laravel MVC, dilengkapi harga transparan dengan perbandingan pasar, log inventaris otomatis, dan sistem skor kelayakan pembiayaan.',
+      en: 'A full-stack Laravel MVC marketplace connecting local farmers and SMEs directly with buyers, with market-price comparisons, automatic inventory logs, and financing eligibility scoring.',
+      id: 'Marketplace full-stack Laravel MVC yang menghubungkan petani dan UMKM lokal langsung dengan pembeli, dilengkapi perbandingan harga pasar, log inventaris otomatis, dan penilaian kelayakan pembiayaan.',
     },
     status: 'completed',
     techStack: ['Laravel', 'PHP 8.1+', 'MySQL', 'Blade', 'JavaScript', 'CSS3'],
@@ -121,8 +121,8 @@ export const projects: Project[] = [
       id: 'Platform Manajemen Acara & Registrasi Peserta Terpusat',
     },
     description: {
-      en: 'A full-featured web application to manage event registration, committee scheduling, ticket verification, and data recap — built on a structured relational MySQL schema with Laravel authentication.',
-      id: 'Aplikasi web lengkap untuk manajemen registrasi peserta acara, penjadwalan panitia, verifikasi tiket kehadiran, dan rekap data — dibangun di atas skema MySQL relasional terstruktur dengan autentikasi Laravel.',
+      en: 'A Laravel event platform for participant registration, committee scheduling, ticket and attendance checks, and data recaps, backed by relational MySQL and authentication.',
+      id: 'Platform Laravel untuk registrasi peserta, penjadwalan panitia, verifikasi tiket dan kehadiran, serta rekap data, didukung MySQL relasional dan autentikasi.',
     },
     status: 'completed',
     techStack: ['Laravel', 'MySQL', 'PHP', 'JavaScript', 'HTML5', 'CSS3'],
@@ -198,8 +198,8 @@ export const projects: Project[] = [
       id: 'Aplikasi Catatan Pribadi Lintas Platform dengan Ringkasan AI',
     },
     description: {
-      en: 'A clean cross-platform note-taking app built with Flutter, featuring secure local storage and an in-progress AI layer for automatic summarization, smart topic grouping, and context-aware search.',
-      id: 'Aplikasi pencatatan pribadi lintas platform yang bersih dibangun dengan Flutter, dilengkapi penyimpanan lokal aman dan lapisan AI yang sedang dikembangkan untuk ringkasan otomatis, pengelompokan topik pintar, dan pencarian berbasis konteks.',
+      en: 'A cross-platform Flutter note app with secure local storage; AI summarization, smart topic grouping, and context-aware search are in development.',
+      id: 'Aplikasi catatan lintas platform Flutter dengan penyimpanan lokal aman; ringkasan AI, pengelompokan topik pintar, dan pencarian kontekstual sedang dikembangkan.',
     },
     status: 'in-progress',
     progressPercent: 65,

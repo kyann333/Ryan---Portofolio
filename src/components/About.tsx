@@ -18,11 +18,11 @@ const ui = {
   en: {
     sectionLabel: 'About',
     headline: 'Two Strengths, One Developer',
-    sub: "I build software that works in the real world — from Laravel-powered supply chains to Flutter mobile apps — while also understanding that technology only matters when communicated well and led with purpose.",
+    sub: 'I build practical software—from Laravel supply-chain platforms to Flutter apps—and pair it with clear communication and purposeful leadership.',
     techTitle: 'Technical Depth',
-    techDesc: "Backend & database architecture in Laravel/MySQL, cross-platform mobile UI in Flutter, and an emerging practice in Python-based data exploration on Kaggle. I architect systems with clean MVC separation, foreign-key-aware migrations, and maintainable Eloquent relationships.",
+    techDesc: 'Laravel/MySQL backend and database architecture, cross-platform Flutter UI, and Python data exploration on Kaggle—built with clean MVC separation, foreign-key-aware migrations, and maintainable Eloquent relationships.',
     humanTitle: 'Human-Centered Side',
-    humanDesc: "As Vice Chair of UKM Programming, an assistant programming instructor, and a volunteer at national events — I know how to communicate complex ideas simply, motivate teams, and build communities from scratch.",
+    humanDesc: 'Vice Chair of UKM Programming, assistant programming instructor, and national-event volunteer—experienced in simplifying complex ideas, motivating teams, and building communities from scratch.',
     education: 'Education',
     umdpDegree: 'S1 Informatics (Bachelor of Computer Science)',
     umdpPeriod: '2025 – Present',
@@ -51,11 +51,11 @@ const ui = {
   id: {
     sectionLabel: 'Tentang',
     headline: 'Dua Kekuatan, Satu Developer',
-    sub: 'Saya membangun perangkat lunak yang bekerja di dunia nyata — dari rantai pasok berbasis Laravel hingga aplikasi mobile Flutter — sembari memahami bahwa teknologi hanya bermakna ketika dikomunikasikan dengan baik dan dipimpin dengan tujuan yang jelas.',
+    sub: 'Saya membangun perangkat lunak praktis—dari platform rantai pasok Laravel hingga aplikasi Flutter—dengan komunikasi yang jelas dan kepemimpinan yang terarah.',
     techTitle: 'Kedalaman Teknis',
-    techDesc: 'Arsitektur backend & database di Laravel/MySQL, UI mobile lintas platform di Flutter, dan praktik eksplorasi data berbasis Python di Kaggle. Saya merancang sistem dengan pemisahan MVC yang bersih, migrasi foreign-key-aware, dan relasi Eloquent yang mudah dipelihara.',
+    techDesc: 'Backend dan arsitektur database Laravel/MySQL, UI Flutter lintas platform, serta eksplorasi data Python di Kaggle—dengan pemisahan MVC, migrasi yang menjaga foreign key, dan relasi Eloquent yang mudah dipelihara.',
     humanTitle: 'Sisi Manusiawi',
-    humanDesc: 'Sebagai Wakil Ketua UKM Programming, asisten pengajar pemrograman, dan volunteer di acara nasional — saya tahu cara mengkomunikasikan ide kompleks dengan sederhana, memotivasi tim, dan membangun komunitas dari nol.',
+    humanDesc: 'Wakil Ketua UKM Programming, asisten pengajar pemrograman, dan volunteer acara nasional—berpengalaman menyederhanakan ide kompleks, memotivasi tim, dan membangun komunitas dari nol.',
     education: 'Pendidikan',
     umdpDegree: 'S1 Informatika (Sarjana Ilmu Komputer)',
     umdpPeriod: '2025 – Sekarang',
@@ -109,12 +109,12 @@ export default function About() {
         >
           {copy.headline}
         </motion.h2>
-        <motion.p {...fadeUp(0.1)} className="text-charcoal/65 font-ui text-base md:text-lg leading-relaxed max-w-2xl mb-12">
+        <motion.p {...fadeUp(0.1)} className="text-charcoal/65 font-ui text-base md:text-lg leading-relaxed max-w-2xl mb-10">
           {copy.sub}
         </motion.p>
 
         {/* Dual-strength cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-14">
           {/* Technical card */}
           <motion.div {...fadeUp(0.15)}>
             <SpotlightCard className="card-warm p-6 border-l-4 border-navy h-full">
@@ -124,7 +124,7 @@ export default function About() {
                 </span>
                 <h3 className="font-editorial font-semibold text-charcoal text-lg">{copy.techTitle}</h3>
               </div>
-              <p className="text-charcoal/65 font-ui text-sm leading-relaxed">{copy.techDesc}</p>
+              <p className="text-charcoal/70 font-ui text-sm leading-relaxed">{copy.techDesc}</p>
               <div className="flex flex-wrap gap-1.5 mt-4">
                 {['Laravel', 'PHP', 'MySQL', 'Flutter', 'Dart', 'Python'].map((t) => (
                   <span key={t} className="tech-pill">{t}</span>
@@ -142,7 +142,7 @@ export default function About() {
                 </span>
                 <h3 className="font-editorial font-semibold text-charcoal text-lg">{copy.humanTitle}</h3>
               </div>
-              <p className="text-charcoal/65 font-ui text-sm leading-relaxed">{copy.humanDesc}</p>
+              <p className="text-charcoal/70 font-ui text-sm leading-relaxed">{copy.humanDesc}</p>
               <div className="flex flex-wrap gap-1.5 mt-4">
                 {['Leadership', 'Peer Teaching', 'Photography', 'Business'].map((t) => (
                   <span key={t} className="font-mono text-xs px-2.5 py-1 rounded-full bg-espresso/10 text-espresso border border-espresso/20">{t}</span>

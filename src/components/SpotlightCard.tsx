@@ -54,7 +54,7 @@ export default function SpotlightCard({ children, className = '' }: SpotlightCar
         style={{
           opacity: 'var(--spotlight-opacity)',
           background:
-            'radial-gradient(280px circle at var(--spotlight-x) var(--spotlight-y), rgba(92,64,51,0.09), transparent 70%)',
+            'radial-gradient(280px circle at var(--spotlight-x) var(--spotlight-y), rgba(52,74,154,0.09), transparent 70%)',
         }}
         aria-hidden="true"
       />

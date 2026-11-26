@@ -148,8 +148,8 @@ const softSkills: SoftSkillDef[] = [
       id: 'Wakil Ketua UKM Programming + Kepala PJ Program Coaching @ UMDP',
     },
     badge: { en: 'University-Level', id: 'Tingkat Universitas' },
-    iconBg: 'bg-[#1B365D]', iconText: 'text-[#F7F3EB]',
-    cardBg: 'bg-[#EAE2D3]',
+    iconBg: 'bg-[#344A9A]', iconText: 'text-[#FAF9F6]',
+    cardBg: 'bg-[#EEF0FA]',
   },
   {
     icon: <BookOpen size={20} />,
@@ -159,8 +159,8 @@ const softSkills: SoftSkillDef[] = [
       id: 'Mengajar TK–SD 3 (Sekolah Minggu), ekskul programming SMA, dan coaching universitas',
     },
     badge: { en: 'Kindergarten → University', id: 'TK → Universitas' },
-    iconBg: 'bg-[#5C4033]', iconText: 'text-[#F7F3EB]',
-    cardBg: 'bg-[#FDFBF7]',
+    iconBg: 'bg-[#665B50]', iconText: 'text-[#FAF9F6]',
+    cardBg: 'bg-white',
   },
   {
     icon: <Gamepad2 size={20} />,
@@ -170,8 +170,8 @@ const softSkills: SoftSkillDef[] = [
       id: 'Pelatih Tekken 8 & Naruto Ninja Storm — analisis frame data, posisi, dan ketenangan mental',
     },
     badge: { en: 'Tekken 8 · Naruto NS', id: 'Tekken 8 · Naruto NS' },
-    iconBg: 'bg-[#1B365D]', iconText: 'text-[#F7F3EB]',
-    cardBg: 'bg-[#EAE2D3]',
+    iconBg: 'bg-[#344A9A]', iconText: 'text-[#FAF9F6]',
+    cardBg: 'bg-[#EEF0FA]',
   },
   {
     icon: <Lightbulb size={20} />,
@@ -181,8 +181,8 @@ const softSkills: SoftSkillDef[] = [
       id: 'Pemikiran terstruktur dari software engineering + strategi game kompetitif',
     },
     badge: { en: 'Software · Strategy', id: 'Software · Strategi' },
-    iconBg: 'bg-[#5C4033]', iconText: 'text-[#F7F3EB]',
-    cardBg: 'bg-[#FDFBF7]',
+    iconBg: 'bg-[#665B50]', iconText: 'text-[#FAF9F6]',
+    cardBg: 'bg-white',
   },
   {
     icon: <Camera size={20} />,
@@ -192,8 +192,8 @@ const softSkills: SoftSkillDef[] = [
       id: 'Fotografi & marketing bisnis — komposisi, cahaya, dan komunikasi audiens',
     },
     badge: { en: 'Photography · Marketing', id: 'Fotografi · Marketing' },
-    iconBg: 'bg-[#1B365D]', iconText: 'text-[#F7F3EB]',
-    cardBg: 'bg-[#EAE2D3]',
+    iconBg: 'bg-[#344A9A]', iconText: 'text-[#FAF9F6]',
+    cardBg: 'bg-[#EEF0FA]',
   },
   {
     icon: <Trophy size={20} />,
@@ -203,8 +203,8 @@ const softSkills: SoftSkillDef[] = [
       id: 'Peserta Competitive Programming IFEST 6.0 @ UMDP',
     },
     badge: { en: 'IFEST 6.0 · UMDP', id: 'IFEST 6.0 · UMDP' },
-    iconBg: 'bg-[#5C4033]', iconText: 'text-[#F7F3EB]',
-    cardBg: 'bg-[#FDFBF7]',
+    iconBg: 'bg-[#665B50]', iconText: 'text-[#FAF9F6]',
+    cardBg: 'bg-white',
   },
 ]
 
@@ -239,7 +239,7 @@ export default function Skills() {
     <section
       id="skills"
       className="section-spacing"
-      style={{ background: 'linear-gradient(180deg,#F7F3EB 0%,#EAE2D3 100%)' }}
+      style={{ background: 'linear-gradient(180deg,#FAF9F6 0%,#F2F1ED 100%)' }}
       aria-labelledby="skills-heading"
     >
       <div className="section-container">
@@ -274,6 +274,12 @@ export default function Skills() {
           ))}
         </motion.div>
 
+        <motion.div
+          key={activeFilter}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.24, ease: EASE }}
+        >
         {/* Tech Skills Grid */}
         {showTech && (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 mb-8">
@@ -302,14 +308,14 @@ export default function Skills() {
                 <h3 className="font-ui text-xs font-semibold text-charcoal/50 tracking-widest uppercase">
                   Soft Skills & Unique Edge
                 </h3>
-                <div className="flex-1 h-px" style={{ background: 'rgba(92,64,51,0.12)' }} />
+                <div className="flex-1 h-px bg-charcoal/10" />
               </motion.div>
             )}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {softSkills.map((s, i) => (
                 <motion.div key={i} {...fadeUp(i * 0.07)}>
                   <SpotlightCard
-                    className={`${s.cardBg} rounded-xl border border-[#5C4033]/25 p-4 flex gap-3 h-full cursor-default`}
+                    className={`${s.cardBg} rounded-2xl border border-charcoal/10 p-4 flex gap-3 h-full cursor-default`}
                   >
                     {/* Solid icon badge — high contrast */}
                     <div
@@ -319,10 +325,10 @@ export default function Skills() {
                       {s.icon}
                     </div>
                     <div className="flex flex-col gap-1 min-w-0">
-                      <p className="font-ui font-bold text-sm text-[#1C1B18] leading-tight">
+                      <p className="font-ui font-bold text-sm text-charcoal leading-tight">
                         {locale === 'en' ? s.title.en : s.title.id}
                       </p>
-                      <p className="font-ui text-xs leading-snug" style={{ color: '#3B352E' }}>
+                      <p className="font-ui text-xs leading-snug text-charcoal/75">
                         {locale === 'en' ? s.desc.en : s.desc.id}
                       </p>
                       <span
@@ -337,6 +343,7 @@ export default function Skills() {
             </div>
           </>
         )}
+        </motion.div>
       </div>
     </section>
   )

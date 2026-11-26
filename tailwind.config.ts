@@ -30,19 +30,19 @@ const config: Config = {
       colors: {
         // Warm Editorial Tech Palette
         cream: {
-          DEFAULT: '#F7F3EB',
-          dark: '#EAE2D3',
+          DEFAULT: '#FAF9F6',
+          dark: '#F0EEE8',
         },
-        charcoal: '#1C1B18',
+        charcoal: '#20232B',
         navy: {
-          DEFAULT: '#1B365D',
-          light: '#2A4A7F',
+          DEFAULT: '#344A9A',
+          light: '#5267B2',
         },
         espresso: {
-          DEFAULT: '#5C4033',
-          light: '#8C6D53',
+          DEFAULT: '#665B50',
+          light: '#918475',
         },
-        'espresso-light': '#8C6D53',
+        'espresso-light': '#918475',
       },
       fontFamily: {
         editorial: ['var(--font-lora)', 'Georgia', 'serif'],
@@ -50,10 +50,10 @@ const config: Config = {
         mono: ['var(--font-jetbrains)', 'Consolas', 'monospace'],
       },
       boxShadow: {
-        'warm-sm': '0 1px 4px 0 rgba(92,64,51,0.08)',
-        'warm-md': '0 4px 16px 0 rgba(92,64,51,0.10)',
-        'warm-lg': '0 8px 32px 0 rgba(92,64,51,0.12)',
-        'warm-xl': '0 16px 48px 0 rgba(27,54,93,0.14)',
+        'warm-sm': '0 2px 8px 0 rgba(32,35,43,0.045), 0 1px 2px rgba(32,35,43,0.04)',
+        'warm-md': '0 10px 28px -12px rgba(32,35,43,0.18), 0 3px 8px rgba(32,35,43,0.05)',
+        'warm-lg': '0 18px 42px -18px rgba(32,35,43,0.22), 0 5px 12px rgba(32,35,43,0.06)',
+        'warm-xl': '0 24px 56px -20px rgba(32,35,43,0.28), 0 8px 20px rgba(32,35,43,0.08)',
       },
       borderRadius: {
         'xl': '0.75rem',
